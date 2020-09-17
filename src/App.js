@@ -11,7 +11,7 @@ const pageToShow = (pageName) => {
 };
 
 const configValue = {
-  showSpeakerSpeakingDays: true
+  showSpeakerSpeakingDays: false
 };
 
 const App = ({ pageName }) => {
