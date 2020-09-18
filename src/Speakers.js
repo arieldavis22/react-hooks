@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useReducer } from 'react';
+import React, { useEffect, useState, useContext, useReducer, useMemo } from 'react';
 
 import { Header } from '../src/Header';
 import { Menu } from '../src/Menu';
@@ -43,22 +43,23 @@ const Speakers = ({}) => {
     setSpeakingSaturday(!speakingSaturday);
   };
 
+  const newSpeakerList = useMemo(() => speakerList
+  .filter(
+    ({ sat, sun}) => (speakingSaturday && sat) || (speakingSunday && sun)
+  )
+  .sort(function(a, b) {
+    if (a.firstName < b.firstName) {
+      return -1;
+    }
+    if (a.firstName > b.firstName) {
+      return 1;
+    }
+    return 0
+  }), [speakingSaturday, speakingSunday, speakerList])
+
   const speakerListFiltered = isLoading
     ? []
-    : speakerList
-        .filter(
-          ({ sat, sun }) =>
-            (speakingSaturday && sat) || (speakingSunday && sun),
-        )
-        .sort(function (a, b) {
-          if (a.firstName < b.firstName) {
-            return -1;
-          }
-          if (a.firstName > b.firstName) {
-            return 1;
-          }
-          return 0;
-        });
+    : newSpeakerList;
 
   const handleChangeSunday = () => {
     setSpeakingSunday(!speakingSunday);
