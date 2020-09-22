@@ -13,7 +13,7 @@ const Speakers = ({}) => {
   const [speakingSunday, setSpeakingSunday] = useState(true);
   const context = useContext(ConfigContext)
 
-  const { isLoading, speakerList, dispatch } = useSpeakerDataManager
+  const { isLoading, speakerList, dispatch } = useSpeakerDataManager();
 
 
 
