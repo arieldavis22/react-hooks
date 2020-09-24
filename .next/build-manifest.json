@@ -24,11 +24,6 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/emailvalidating": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/emailvalidating.js"
-    ],
     "/speakers": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",

@@ -13,7 +13,7 @@ const Speakers = ({}) => {
   const [speakingSunday, setSpeakingSunday] = useState(true);
   const context = useContext(ConfigContext)
 
-  const { isLoading, speakerList, dispatch } = useSpeakerDataManager();
+  const { isLoading, speakerList, toggleSpeakerFavorite } = useSpeakerDataManager();
 
 
 
@@ -43,14 +43,9 @@ const Speakers = ({}) => {
     setSpeakingSunday(!speakingSunday);
   };
 
-  const heartFavoriteHandler = (e, favoriteValue) => {
+  const heartFavoriteHandler = (e, speakerRec) => {
     e.preventDefault();
-    const sessionId = parseInt(e.target.attributes['data-sessionid'].value);
-
-    dispatch({
-      type: favoriteValue ? "favorite" : "unfavorite",
-      id: sessionId
-    })
+    toggleSpeakerFavorite(speakerRec)
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -91,16 +86,12 @@ const Speakers = ({}) => {
         <div className="row">
           <div className="card-deck">
             {speakerListFiltered.map(
-              ({ id, firstName, lastName, bio, favorite }) => {
+              (speakerRec) => {
                 return (
                   <SpeakerDetail
-                    key={id}
-                    id={id}
-                    favorite={favorite}
+                    key={speakerRec.id}
+                    speakerRec={speakerRec}
                     onHeartFavoriteHandler={heartFavoriteHandler}
-                    firstName={firstName}
-                    lastName={lastName}
-                    bio={bio}
                   />
                 );
               },
